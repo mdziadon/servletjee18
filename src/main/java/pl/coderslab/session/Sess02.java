@@ -31,7 +31,7 @@ public class Sess02 extends HttpServlet {
         }
 
         // Sprawdzenie poprawności podanej wartości
-        if (StringUtils.isNotBlank(grade) && StringUtils.isNumeric(grade)) {
+        if (isCorrectGrade(grade)) {
             // Dodanie oceny do listy
             grades.add(Integer.parseInt(grade));
             // Dodanie listy z ocenami do sesji
@@ -39,6 +39,25 @@ public class Sess02 extends HttpServlet {
         } else {
             response.getWriter().append("Nieprawidłowa ocena");
         }
+
+        doGet(request, response);
+
+        displayGrades(response, grades);
+    }
+
+    private boolean isCorrectGrade(String grade) {
+        return StringUtils.isNotBlank(grade) && StringUtils.isNumeric(grade)
+                && Integer.parseInt(grade) >= 1 && Integer.parseInt(grade) <= 6;
+    }
+
+    private void displayGrades(HttpServletResponse response, List<Integer> grades) throws IOException {
+        double sum = 0;
+        response.getWriter().append("Oceny:").append("<br>");
+        for (int elem : grades) {
+            response.getWriter().append(String.valueOf(elem)).append("<br>");
+            sum += elem;
+        }
+        response.getWriter().append("<br>Średnia: ").append(String.valueOf(sum/grades.size()));
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
