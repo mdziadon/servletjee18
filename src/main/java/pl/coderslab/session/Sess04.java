@@ -29,7 +29,7 @@ public class Sess04 extends HttpServlet {
         String qtyStr = request.getParameter("qty");
 
         if (StringUtils.isBlank(priceStr) || StringUtils.isBlank(nameStr) || StringUtils.isBlank(qtyStr)
-                || !StringUtils.isNumeric(priceStr) || !StringUtils.isNumeric(qtyStr)) {
+                || !isDouble(priceStr) || !StringUtils.isNumeric(qtyStr)) {
             response.getWriter().append("Nieprawidlowe parametry");
             return;
         }
@@ -47,6 +47,7 @@ public class Sess04 extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html; charset=utf-8");
 
         PrintWriter writer = response.getWriter();
         writer.append("<form method='post'>" +
@@ -59,7 +60,8 @@ public class Sess04 extends HttpServlet {
         //Pobranie produktów z sesji, jeśli ich nie ma to utworzenie nowej listy produktów
         List<Product> products = (ArrayList<Product>) request.getSession().getAttribute("basket");
         if (products == null) {
-            products = new ArrayList<>();
+            response.getWriter().append("Brak produktow w sesji");
+            return;
         }
 
         //Wyświetlenie produktów
@@ -78,6 +80,15 @@ public class Sess04 extends HttpServlet {
             sum += product.getPrice() * product.getQty();
         }
         writer.append("Suma: ").append(String.valueOf(sum)).append(" PLN");
+    }
+
+    private boolean isDouble(String number) {
+        try {
+            Double.parseDouble(number);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }
