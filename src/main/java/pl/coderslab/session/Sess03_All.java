@@ -26,10 +26,10 @@ public class Sess03_All extends HttpServlet {
         }
 
         response.getWriter().append("<table border='1'>");
-        for (String key : names) {
-            String value = (String) session.getAttribute(key);
+        for (String name : names) {
+            String value = (String) session.getAttribute(name);
             response.getWriter().append("<tr>")
-                    .append("<td>").append(key).append("</td>")
+                    .append("<td>").append(name).append("</td>")
                     .append("<td>").append(value).append("</td>")
                     .append("</tr>");
         }

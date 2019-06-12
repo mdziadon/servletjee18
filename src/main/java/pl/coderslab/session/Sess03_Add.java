@@ -23,7 +23,7 @@ public class Sess03_Add extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        // Pobranie mapy z sesji
+        // Pobranie listy z sesji
         List<String> names = (List<String>) session.getAttribute("names");
         // Jeśli nie było w sesji to tworzę nową listę
         if (names == null) {
@@ -38,7 +38,7 @@ public class Sess03_Add extends HttpServlet {
             // Dodanie wartości do listy nazw
             names.add(key);
 
-            // Zapisanie wartości do sesji
+            // Zapisanie wartości do sesji (listy z nazwami atrybutow i sam atrybut o nazwie i wartosci z formularza)
             session.setAttribute("names", names);
             session.setAttribute(key, value);
 
