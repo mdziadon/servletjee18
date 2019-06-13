@@ -10,5 +10,11 @@
 <div>
     Ilość mil = ${empty km ? 'brak' : km * 1.609344}
 </div>
+
+
+<div>
+    Role = ${empty param.role ? 'guest' : param.role}
+</div>
+
 </body>
 </html>
