@@ -20,7 +20,7 @@ public class Get1 extends HttpServlet {
 
         if (StringUtils.isBlank(start) || StringUtils.isBlank(end)
             || !StringUtils.isNumeric(start) || !StringUtils.isNumeric(end)) {
-            response.getWriter().append("Niepoprawne parametry");
+            response.getWriter().append("Niepoprawne parametry ąśćół");
             return;
         }
 
